@@ -6,8 +6,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
+
+# Especifica el archivo .csproj correctamente
+RUN dotnet restore "SistemaWebHorarios/SistemaWebHorarios.csproj"
+RUN dotnet publish "SistemaWebHorarios/SistemaWebHorarios.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
